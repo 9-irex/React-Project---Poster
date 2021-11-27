@@ -1,8 +1,25 @@
 import React from "react";
 import "./auth.css";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 function Access() {
+  const loginBtn = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:4000/api/v1/poster/login", {
+      Username: document.getElementById("username").value,
+      Password: document.getElementById("password").value,
+      Type: "Login",
+    }).then((res) => {
+      if (res.data.Message !== "Yes") {
+        console.log({ message: res.data.Message, error: res.data.error });
+        alert(res.data.Message);
+      } else {
+        window.location.href = "/";
+      }
+    });
+  };
+
   return (
     <div className="__container">
       <div className="wrapper">
@@ -81,25 +98,29 @@ function Access() {
               All These Information Below
             </p>
 
-            <div class="fields row w-100">
-              <div class="item input_hover col-sm-12">
+            <div className="fields row w-100">
+              <div className="item input_hover col-sm-12">
                 <input
                   type="text"
-                  class="w-100"
+                  className="w-100"
                   required
                   placeholder="Your Username"
+                  id="username"
                 />
               </div>
-              <div class="item input_hover col-sm-12">
+              <div className="item input_hover col-sm-12">
                 <input
                   type="password"
-                  class="w-100"
+                  className="w-100"
                   required
                   placeholder="Your Password"
+                  id="password"
                 />
               </div>
             </div>
-            <button className="btn_signup w-100">sign up</button>
+            <button className="btn_signup w-100" onClick={loginBtn}>
+              sign up
+            </button>
           </form>
         </div>
       </div>

@@ -1,8 +1,32 @@
 import React from "react";
 import "./auth.css";
 import { Link } from "react-router-dom";
+import Axios from "axios";
 
 function Join() {
+  const registerBtn = (e) => {
+    e.preventDefault();
+    Axios.post("http://localhost:4000/api/v1/poster/register", {
+      Name: document.getElementById("name").value,
+      Email: document.getElementById("email").value,
+      Phone: document.getElementById("phone").value,
+      Gender: document.getElementById("gender").value,
+      Birthday: document.getElementById("birthdate").value,
+      Username: document.getElementById("username").value,
+      Password: document.getElementById("password").value,
+      Status: "Active",
+      Avatar: "image",
+      Date: document.getElementById("date").value,
+      Type: "Register",
+    }).then((res) => {
+      if (res.data.Message !== "User Registered") {
+        console.log({ message: res.data.Message, error: res.data.error });
+        alert(res.data.Message);
+      } else {
+        window.location.href = "/";
+      }
+    });
+  };
   return (
     <div className="__container">
       <div className="wrapper">
@@ -85,35 +109,69 @@ function Join() {
 
             <div className="fields row w-100">
               <div className="item input_hover col-sm-6">
-                <input type="text" required placeholder="Your Name" />
+                <input type="text" required placeholder="Your Name" id="name" />
               </div>
               <div className="item input_hover col-sm-6">
-                <input type="email" required placeholder="Your Email" />
+                <input
+                  type="email"
+                  required
+                  placeholder="Your Email"
+                  id="email"
+                />
               </div>
               <div className="item input_hover col-sm-6">
-                <input type="text" required placeholder="Your Phone" />
+                <input
+                  type="text"
+                  required
+                  placeholder="Your Phone"
+                  id="phone"
+                />
               </div>
               <div className="item input_hover col-sm-6">
-                <select required>
+                <select required id="gender">
                   <option value="">Select Gender</option>
-                  <option value="1">Male Gender</option>
-                  <option value="2">Female Gender</option>
+                  <option value="Male">Male Gender</option>
+                  <option value="Female">Female Gender</option>
                 </select>
               </div>
               <div className="item input_hover col-sm-6">
-                <input type="text" required placeholder="Your Username" />
+                <input
+                  type="text"
+                  required
+                  placeholder="Your Username"
+                  id="username"
+                />
               </div>
               <div className="item input_hover col-sm-6">
-                <input type="password" required placeholder="Your Password" />
+                <input
+                  type="password"
+                  required
+                  placeholder="Your Password"
+                  id="password"
+                />
               </div>
               <div className="item input_hover col-sm-6">
-                <input type="date" required placeholder="Your Brithday" />
+                <span className="indicator">* Birthdate</span>
+                <input
+                  type="date"
+                  required
+                  placeholder="Your Brithday"
+                  id="birthdate"
+                />
               </div>
               <div className="item input_hover col-sm-6">
-                <input type="date" required placeholder="Current Date" />
+                <span className="indicator">* Date</span>
+                <input
+                  type="date"
+                  required
+                  placeholder="Current Date"
+                  id="date"
+                />
               </div>
             </div>
-            <button className="btn_signup">sign up</button>
+            <button className="btn_signup" onClick={registerBtn}>
+              sign up
+            </button>
           </form>
         </div>
       </div>

@@ -466,6 +466,20 @@ body {
   margin-bottom: 20pt;
 }
 
+.__container .wrapper .right__box form .fields .item:nth-child(7),
+.__container .wrapper .right__box form .fields .item:nth-child(8) {
+  margin-top: 10px;
+}
+
+.__container .wrapper .right__box form .fields .item .indicator {
+  position: absolute;
+  left: 14px;
+  top: -25px;
+  font-size: 10px;
+  font-weight: bold;
+  color: #036822;
+}
+
 .__container .wrapper .right__box form .fields .item input,
 .__container .wrapper .right__box form .fields .item select {
   width: 90%;

@@ -1,23 +1,31 @@
 import React from "react";
 import "./auth.css";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 
 function Access() {
+  axios.defaults.withCredentials = true;
+
   const loginBtn = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:4000/api/v1/poster/login", {
-      Username: document.getElementById("username").value,
-      Password: document.getElementById("password").value,
-      Type: "Login",
-    }).then((res) => {
-      if (res.data.Message !== "Yes") {
-        console.log({ message: res.data.Message, error: res.data.error });
-        alert(res.data.Message);
-      } else {
-        window.location.href = "/";
-      }
-    });
+    axios
+      .post("http://localhost:4000/api/v1/poster/login", {
+        Username: document.getElementById("username").value,
+        Password: document.getElementById("password").value,
+        Type: "Login",
+      })
+      .then((res) => {
+        if (res.data.Message === "No") {
+          alert(res.data.Message);
+        } else {
+          // ReactSession.set("UserCredentials", res.data.Message);
+          sessionStorage.setItem(
+            "UserCredentials",
+            JSON.stringify(res.data.Message)
+          );
+          window.location.href = "/";
+        }
+      });
   };
 
   return (
@@ -36,7 +44,7 @@ function Access() {
                 </div>
                 <span className="link">
                   i don't have an account
-                  <Link to="/join">register</Link>
+                  <Link to="/join">Register</Link>
                 </span>
               </div>
               <div className="bottom__content">
@@ -87,7 +95,7 @@ function Access() {
               </div>
               <span className="link">
                 i don't have an account
-                <Link to="/join">register</Link>
+                <Link to="/join"> Register</Link>
               </span>
             </div>
           </div>

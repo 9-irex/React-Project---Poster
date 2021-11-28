@@ -1,7 +1,13 @@
 import React from "react";
+import { ReactSession } from "react-client-session";
 
 function Home() {
-  return <h1>Home Page</h1>;
+  // Set the session to localstorage
+  ReactSession.setStoreType("localStorage");
+
+
+
+  return <h1>Username</h1>;
 }
 
 export default Home;

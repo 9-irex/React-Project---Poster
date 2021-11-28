@@ -6,11 +6,32 @@ const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const Auth = require("./routes/auth_routes");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const clientUrl = "http://localhost:3000";
 
 // Middlwares
-app.use(cors());
+app.use(
+  cors({
+    origin: [clientUrl],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(cookieParser());
+
+// Setting Session
+// app.use(
+//   session({
+//     key: "UserID",
+//     secret: "UserSession",
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: { expires: 60 * 60 * 24 },
+//   })
+// );
 
 // call routes
 app.use("/api/v1/poster", Auth);

@@ -1,12 +1,12 @@
 import React from "react";
 import "./auth.css";
 import { Link } from "react-router-dom";
-import Axios from "axios";
+import axios from "axios";
 
 function Join() {
   const registerBtn = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:4000/api/v1/poster/register", {
+    axios.post("http://localhost:4000/api/v1/poster/register", {
       Name: document.getElementById("name").value,
       Email: document.getElementById("email").value,
       Phone: document.getElementById("phone").value,
@@ -20,13 +20,14 @@ function Join() {
       Type: "Register",
     }).then((res) => {
       if (res.data.Message !== "User Registered") {
-        console.log({ message: res.data.Message, error: res.data.error });
         alert(res.data.Message);
+        window.location.href = "/access";
       } else {
         window.location.href = "/";
       }
     });
   };
+
   return (
     <div className="__container">
       <div className="wrapper">

@@ -71,9 +71,6 @@ const Login = (req, res) => {
 
         Bcrypt.compare(Password, result[0][0].Password, (error, result) => {
           if (result) {
-            // Set the session
-            // req.session.userCredentials = UserSessionObject;
-
             res.send({ Error: null, Message: UserSessionObject });
           } else {
             res.send({ Error: error, Message: "No" });

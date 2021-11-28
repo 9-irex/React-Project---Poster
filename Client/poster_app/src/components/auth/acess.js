@@ -18,11 +18,6 @@ function Access() {
         if (res.data.Message === "No") {
           alert(res.data.Message);
         } else {
-          // ReactSession.set("UserCredentials", res.data.Message);
-          sessionStorage.setItem(
-            "UserCredentials",
-            JSON.stringify(res.data.Message)
-          );
           window.location.href = "/";
         }
       });

@@ -1,14 +1,13 @@
 import React from "react";
-import "./auth.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Access() {
   axios.defaults.withCredentials = true;
 
-  const loginBtn = (e) => {
+  const loginBtn = async (e) => {
     e.preventDefault();
-    axios
+    await axios
       .post("http://localhost:4000/api/v1/poster/login", {
         Username: document.getElementById("username").value,
         Password: document.getElementById("password").value,
@@ -22,6 +21,8 @@ function Access() {
         }
       });
   };
+
+
 
   return (
     <div className="__container">

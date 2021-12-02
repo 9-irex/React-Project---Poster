@@ -1,13 +1,20 @@
 import React from "react";
-import { ReactSession } from "react-client-session";
+import Nav from "./bars/nav";
+import Feed from "./bars/feed";
+import Posts from "./bars/posts";
+import Notifications from "./bars/notifications";
 
 function Home() {
-  // Set the session to localstorage
-  ReactSession.setStoreType("localStorage");
-
-
-
-  return <h1>Username</h1>;
+  return (
+    <div className="__container">
+      <div className="wrapper">
+        <Nav />
+        <Feed />
+        <Posts />
+        <Notifications />
+      </div>
+    </div>
+  );
 }
 
 export default Home;

@@ -1,31 +1,31 @@
 import React from "react";
-import "./auth.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Join() {
   const registerBtn = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:4000/api/v1/poster/register", {
-      Name: document.getElementById("name").value,
-      Email: document.getElementById("email").value,
-      Phone: document.getElementById("phone").value,
-      Gender: document.getElementById("gender").value,
-      Birthday: document.getElementById("birthdate").value,
-      Username: document.getElementById("username").value,
-      Password: document.getElementById("password").value,
-      Status: "Active",
-      Avatar: "image",
-      Date: document.getElementById("date").value,
-      Type: "Register",
-    }).then((res) => {
-      if (res.data.Message !== "User Registered") {
-        alert(res.data.Message);
-        window.location.href = "/access";
-      } else {
-        window.location.href = "/";
-      }
-    });
+    axios
+      .post("http://localhost:4000/api/v1/poster/register", {
+        Name: document.getElementById("name").value,
+        Email: document.getElementById("email").value,
+        Phone: document.getElementById("phone").value,
+        Gender: document.getElementById("gender").value,
+        Birthday: document.getElementById("birthdate").value,
+        Username: document.getElementById("username").value,
+        Password: document.getElementById("password").value,
+        Status: "Active",
+        Avatar: "image",
+        Date: document.getElementById("date").value,
+        Type: "Register",
+      })
+      .then((res) => {
+        if (res.data.Message !== "User Registered") {
+          alert(res.data.Message);
+        } else {
+          window.location.href = "/access";
+        }
+      });
   };
 
   return (

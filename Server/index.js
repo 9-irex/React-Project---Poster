@@ -9,6 +9,7 @@ const Auth = require("./routes/auth_routes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const clientUrl = "http://localhost:3000";
+const sessionAge = 1000 * 60 * 60 * 24;
 
 // Middlwares
 app.use(
@@ -20,18 +21,17 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
+app.use(cookieParser());
 
 // Setting Session
-// app.use(
-//   session({
-//     key: "UserID",
-//     secret: "UserSession",
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: { expires: 60 * 60 * 24 },
-//   })
-// );
+app.use(
+  session({
+    secret: "UserSession",
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: sessionAge },
+  })
+);
 
 // call routes
 app.use("/api/v1/poster", Auth);

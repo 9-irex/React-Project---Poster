@@ -9,6 +9,7 @@ const UserSessionObject = {
   UserID: "",
   Username: "",
   Password: "",
+  Avatar: "",
   Status: "",
 };
 
@@ -94,6 +95,7 @@ const Login = async (req, res) => {
           UserSessionObject.UserID = result[0][0].UserID;
           UserSessionObject.Username = result[0][0].Username;
           UserSessionObject.Password = result[0][0].Password;
+          UserSessionObject.Avatar = result[0][0].Avatar;
           UserSessionObject.Status = result[0][0].Status;
 
           // Setting up the session

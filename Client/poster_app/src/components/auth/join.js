@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import './auth.css';
 
 function Join() {
   const registerBtn = (e) => {
@@ -15,7 +16,7 @@ function Join() {
         Username: document.getElementById("username").value,
         Password: document.getElementById("password").value,
         Status: "Active",
-        Avatar: "image",
+        Avatar: document.getElementById("name").value[0],
         Date: document.getElementById("date").value,
         Type: "Register",
       })

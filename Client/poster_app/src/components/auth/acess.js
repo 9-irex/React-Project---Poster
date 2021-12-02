@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./auth.css";
+import { useDispatch } from "react-redux";
+import { fillUser } from "../../redux/features/user";
 
 function Access() {
   axios.defaults.withCredentials = true;
+  const dispatch = useDispatch();
 
   const loginBtn = async (e) => {
     e.preventDefault();
@@ -15,9 +18,18 @@ function Access() {
         Type: "Login",
       })
       .then((res) => {
-        if (res.data.Message === "No") {
+        if (typeof res.data.Message !== "object") {
           alert(res.data.Message);
         } else {
+          // Update user state
+          const passObj = {
+            __id: res.data.Message.UserID,
+            __username: res.data.Message.Username,
+            __password: res.data.Message.Password,
+            __avatar: res.data.Message.Avatar,
+            __status: res.data.Message.Status,
+          };
+          dispatch(fillUser(passObj));
           window.location.href = "/";
         }
       });

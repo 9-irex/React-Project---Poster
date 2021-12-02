@@ -95,7 +95,13 @@ const Login = async (req, res) => {
           UserSessionObject.UserID = result[0][0].UserID;
           UserSessionObject.Username = result[0][0].Username;
           UserSessionObject.Password = result[0][0].Password;
-          UserSessionObject.Avatar = result[0][0].Avatar;
+          if ((result[0][0].Avatar.length = 1)) {
+            // random images
+            UserSessionObject.Avatar =
+              "/Images/Avatars/" + result[0][0].Avatar + ".jpg";
+          } else {
+            "/Images/Avatars/" + result[0][0].Avatar;
+          }
           UserSessionObject.Status = result[0][0].Status;
 
           // Setting up the session

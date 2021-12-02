@@ -1,6 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function Nav() {
+  const user = useSelector((state) => state.user.value);
+  console.log(user);
   return (
     <div className="navigation__side">
       <div>
@@ -20,7 +23,7 @@ function Nav() {
         </div>
         <div className="indicator">
           <div className="profile">
-            <img src="/Images/Random/five.jpg" alt="Preview" />
+            <img src={user.__avatar} alt="Preview" />
           </div>
         </div>
       </div>

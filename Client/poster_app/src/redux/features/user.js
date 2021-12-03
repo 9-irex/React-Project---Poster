@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userObject = {
-  __id: "1",
-  __username: "Deiron",
+  __id: "",
+  __username: "",
   __password: "",
   __avatar: "",
   __status: "",

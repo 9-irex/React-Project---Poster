@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import './auth.css';
 
 function Join() {
   const registerBtn = (e) => {
@@ -30,7 +29,7 @@ function Join() {
   };
 
   return (
-    <div className="__container">
+    <div className="__auth__container">
       <div className="wrapper">
         <div className="left__box">
           <div className="pattern"></div>

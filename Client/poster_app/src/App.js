@@ -1,9 +1,11 @@
 import Access from "./components/auth/acess";
 import Join from "./components/auth/join";
 import Home from "./components/posts/home";
-import "./Widgets.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+import "./Widgets.css";
+import "./Styles/auth.css";
+import "./Styles/feeds.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";

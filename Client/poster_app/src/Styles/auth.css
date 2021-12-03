@@ -1,8 +1,4 @@
-body {
-  background-color: #f0f0f0;
-}
-
-.__container {
+.__auth__container {
   width: 803pt;
   height: 414pt;
   background-color: #ffffff;
@@ -12,7 +8,7 @@ body {
   overflow: hidden;
 }
 
-.__container .wrapper {
+.__auth__container .wrapper {
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -27,26 +23,26 @@ body {
   position: relative;
 }
 
-.__container .wrapper .left__box {
+.__auth__container .wrapper .left__box {
   width: 293pt;
   height: 100%;
   background-color: #036822;
   position: relative;
 }
 
-.__container .wrapper .left__box .pattern {
+.__auth__container .wrapper .left__box .pattern {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("./patterns.png");
+  background-image: url("../components/auth/patterns.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.__container .wrapper .left__box .__content {
+.__auth__container .wrapper .left__box .__content {
   position: absolute;
   top: 0;
   left: 0;
@@ -54,7 +50,7 @@ body {
   height: 100%;
 }
 
-.__container .wrapper .left__box .__content .wrapper {
+.__auth__container .wrapper .left__box .__content .wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -71,7 +67,7 @@ body {
   color: #ffffff;
 }
 
-.__container .wrapper .left__box .__content .wrapper .top__content {
+.__auth__container .wrapper .left__box .__content .wrapper .top__content {
   margin-top: 25pt;
   width: 100%;
   display: -webkit-box;
@@ -85,7 +81,7 @@ body {
   align-items: center;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -104,7 +100,7 @@ body {
   margin-left: 15pt;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -118,7 +114,7 @@ body {
   overflow: hidden;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -135,7 +131,7 @@ body {
   object-fit: cover;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -149,7 +145,7 @@ body {
   padding-left: 6pt;
 }
 
-.__container .wrapper .left__box .__content .wrapper .top__content .link {
+.__auth__container .wrapper .left__box .__content .wrapper .top__content .link {
   margin-right: 9pt;
   font-family: poppins;
   font-size: 8pt;
@@ -157,12 +153,12 @@ body {
   text-transform: capitalize;
 }
 
-.__container .wrapper .left__box .__content .wrapper .top__content .link a {
+.__auth__container .wrapper .left__box .__content .wrapper .top__content .link a {
   font-weight: bold;
   color: #ffffff;
 }
 
-.__container .wrapper .left__box .__content .wrapper .bottom__content {
+.__auth__container .wrapper .left__box .__content .wrapper .bottom__content {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -179,7 +175,7 @@ body {
   flex-direction: column;
 }
 
-.__container .wrapper .left__box .__content .wrapper .bottom__content .title {
+.__auth__container .wrapper .left__box .__content .wrapper .bottom__content .title {
   font-family: Anton;
   text-transform: uppercase;
   font-size: 14pt;
@@ -187,7 +183,7 @@ body {
   padding: 0;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -204,7 +200,7 @@ body {
   margin-bottom: 21pt;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -224,7 +220,7 @@ body {
   margin-bottom: 57.5pt;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -239,7 +235,7 @@ body {
   margin: 0px 10px;
 }
 
-.__container
+.__auth__container
   .wrapper
   .left__box
   .__content
@@ -256,13 +252,13 @@ body {
   object-fit: cover;
 }
 
-.__container .wrapper .right__box {
+.__auth__container .wrapper .right__box {
   width: 510pt;
   height: 100%;
   padding: 26pt 41.5pt 34.5pt 41.5pt;
 }
 
-.__container .wrapper .right__box .top__bar {
+.__auth__container .wrapper .right__box .top__bar {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -276,7 +272,7 @@ body {
   visibility: hidden;
 }
 
-.__container .wrapper .right__box .top__bar .left__bar .brand__logo {
+.__auth__container .wrapper .right__box .top__bar .left__bar .brand__logo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -289,7 +285,7 @@ body {
   margin-left: 15pt;
 }
 
-.__container
+.__auth__container
   .wrapper
   .right__box
   .top__bar
@@ -302,7 +298,7 @@ body {
   overflow: hidden;
 }
 
-.__container
+.__auth__container
   .wrapper
   .right__box
   .top__bar
@@ -318,7 +314,7 @@ body {
   object-fit: cover;
 }
 
-.__container
+.__auth__container
   .wrapper
   .right__box
   .top__bar
@@ -331,7 +327,7 @@ body {
   padding-left: 6pt;
 }
 
-.__container .wrapper .right__box .top__bar .right__bar {
+.__auth__container .wrapper .right__box .top__bar .right__bar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -341,7 +337,7 @@ body {
   align-items: center;
 }
 
-.__container .wrapper .right__box .top__bar .right__bar .link {
+.__auth__container .wrapper .right__box .top__bar .right__bar .link {
   margin-right: 9pt;
   font-family: poppins;
   font-size: 8pt;
@@ -350,12 +346,12 @@ body {
   color: #000000;
 }
 
-.__container .wrapper .right__box .top__bar .right__bar .link a {
+.__auth__container .wrapper .right__box .top__bar .right__bar .link a {
   font-weight: bold;
   color: #000000;
 }
 
-.__container .wrapper .right__box .top__bar .right__bar .social_icon {
+.__auth__container .wrapper .right__box .top__bar .right__bar .social_icon {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -368,7 +364,7 @@ body {
   position: relative;
 }
 
-.__container .wrapper .right__box .top__bar .right__bar .social_icon .icon {
+.__auth__container .wrapper .right__box .top__bar .right__bar .social_icon .icon {
   width: 18px;
   height: 18px;
   position: relative;
@@ -385,7 +381,7 @@ body {
   align-items: center;
 }
 
-.__container .wrapper .right__box .top__bar .right__bar .social_icon .icon img {
+.__auth__container .wrapper .right__box .top__bar .right__bar .social_icon .icon img {
   top: 0;
   left: 0;
   width: 100%;
@@ -394,7 +390,7 @@ body {
   object-fit: cover;
 }
 
-.__container .wrapper .right__box form {
+.__auth__container .wrapper .right__box form {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -412,7 +408,7 @@ body {
   margin-top: 20pt;
 }
 
-.__container .wrapper .right__box form .title {
+.__auth__container .wrapper .right__box form .title {
   font-family: Anton;
   text-transform: uppercase;
   font-size: 16pt;
@@ -421,7 +417,7 @@ body {
   color: #036822;
 }
 
-.__container .wrapper .right__box form .paragraph {
+.__auth__container .wrapper .right__box form .paragraph {
   font-family: poppins;
   font-weight: 300;
   text-transform: capitalize;
@@ -434,7 +430,7 @@ body {
   position: relative;
 }
 
-.__container .wrapper .right__box form .paragraph::after {
+.__auth__container .wrapper .right__box form .paragraph::after {
   content: "";
   position: absolute;
   bottom: -20px;
@@ -446,11 +442,11 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.__container .wrapper .right__box form .fields {
+.__auth__container .wrapper .right__box form .fields {
   margin-top: 28pt;
 }
 
-.__container .wrapper .right__box form .fields .item {
+.__auth__container .wrapper .right__box form .fields .item {
   margin: 0;
   padding: 0;
   position: relative;
@@ -466,12 +462,12 @@ body {
   margin-bottom: 20pt;
 }
 
-.__container .wrapper .right__box form .fields .item:nth-child(7),
-.__container .wrapper .right__box form .fields .item:nth-child(8) {
+.__auth__container .wrapper .right__box form .fields .item:nth-child(7),
+.__auth__container .wrapper .right__box form .fields .item:nth-child(8) {
   margin-top: 10px;
 }
 
-.__container .wrapper .right__box form .fields .item .indicator {
+.__auth__container .wrapper .right__box form .fields .item .indicator {
   position: absolute;
   left: 14px;
   top: -25px;
@@ -480,8 +476,8 @@ body {
   color: #036822;
 }
 
-.__container .wrapper .right__box form .fields .item input,
-.__container .wrapper .right__box form .fields .item select {
+.__auth__container .wrapper .right__box form .fields .item input,
+.__auth__container .wrapper .right__box form .fields .item select {
   width: 90%;
   border: 1.5px solid #595959;
   outline: none;
@@ -494,7 +490,7 @@ body {
   color: #000000;
 }
 
-.__container .wrapper .right__box form .btn_signup {
+.__auth__container .wrapper .right__box form .btn_signup {
   width: 96%;
   background-color: #036822;
   border: none;
@@ -509,13 +505,13 @@ body {
 }
 
 @media (max-width: 1120px) {
-  .__container {
+  .__auth__container {
     width: 510pt;
   }
-  .__container .wrapper .left__box {
+  .__auth__container .wrapper .left__box {
     display: none;
   }
-  .__container .wrapper .right__box .top__bar {
+  .__auth__container .wrapper .right__box .top__bar {
     visibility: visible;
   }
 }

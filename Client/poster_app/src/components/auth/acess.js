@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./auth.css";
 import { useDispatch } from "react-redux";
 import { fillUser } from "../../redux/features/user";
 
@@ -36,7 +35,7 @@ function Access() {
   };
 
   return (
-    <div className="__container">
+    <div className="__auth__container">
       <div className="wrapper">
         <div className="left__box">
           <div className="pattern"></div>
@@ -45,7 +44,7 @@ function Access() {
               <div className="top__content">
                 <div className="brand__logo">
                   <div className="logo__icon">
-                    <img src="./Images/SVG/logo.svg" alt="" />
+                    <img src="/Images/SVG/logo.svg" alt="" />
                   </div>
                   <span className="logo__name">poster</span>
                 </div>
@@ -55,7 +54,7 @@ function Access() {
                 </span>
               </div>
               <div className="bottom__content">
-                <p className="title">welcome dear!</p>
+                <p className="title">welcome daer!</p>
                 <p className="paragraph">
                   We Are Delighted To Have You Among Us. On Behalf Of
                   <br />

@@ -3,11 +3,10 @@ import Nav from "./bars/nav";
 import Feed from "./bars/feed";
 import Posts from "./bars/posts";
 import Notifications from "./bars/notifications";
-import "./feeds.css";
 
 function Home() {
   return (
-    <div className="__container">
+    <div className="__feed_container">
       <div className="wrapper">
         <Nav />
         <Feed />

@@ -1,9 +1,16 @@
 import React from "react";
 import $ from "jquery";
 import { useState } from "react";
+import instance from "../../../axios";
+import { useDispatch } from "react-redux";
+import { initializePost, sendPost } from "../../../redux/features/post_reducer";
 
 function Feed() {
   const [canPost, setCanPost] = useState(false);
+  const dispatch = useDispatch();
+  const [Title, setTitle] = useState("");
+  const [postImage, setPostImage] = useState("");
+
   const Animate = () => {
     let postButton = document.querySelector("#post_button");
     let postForm = document.querySelector(".post_form");
@@ -20,14 +27,45 @@ function Feed() {
     setCanPost(!canPost);
   };
 
-  const sharePost = () => {
-    // Implement 
-  };
+  // function displayImage(fileIMG) {
+  //   if (fileIMG.files[0]) {
+  //     var reader = new FileReader();
+  //     reader.onload = function (fileIMG) {
+  //       var previewImage = document.querySelector(".image_post .previewIMG");
+  //       previewImage.setAttribute("src", fileIMG.target.result);
+  //     };
+  //   }
+  // }
+
+  // const uploadImage = () => {
+  //   const formdata = new FormData();
+  //   const fileImg = document.getElementById("file");
+  //   formdata.append("postImage", fileImg.files[0]);
+  //   // displayImage(fileImg);
+  //   instance.post("/upload", formdata).then((resposne) => {
+  //     // resposne.data.Error === null
+  //     //   ? setPostImage(fileImg.name) && displayImage(e)
+  //     //   : setPostImage("");
+  //   });
+  // };
 
   const validatePost = () => {
+    // e.preventDefault();
     // Animate or Toggle
     Animate();
-    canPost && sharePost();
+
+    if (canPost) {
+      dispatch(
+        initializePost({
+          Title: Title,
+          Image: postImage,
+          UserID: JSON.parse(sessionStorage.getItem("loggedStatus")).data.id,
+          Date: Date.now(),
+          Type: "New_Post",
+        })
+      );
+      dispatch(sendPost());
+    }
   };
 
   return (
@@ -44,17 +82,27 @@ function Feed() {
           <textarea
             placeholder="Enter Post Title"
             className="post_title"
+            onChange={(e) => setTitle(e.target.value)}
           ></textarea>
-          <div className="image_post">
-            <img src="/Images/Random/poster_1.jpg" alt="iagent" />
+          {/* <div className="image_post">
+            <img
+              src="/Images/Random/poster_1.jpg"
+              className="previewIMG"
+              alt="iagent"
+            />
             <label className="label">
-              <input type="file" />
+              <input type="file" id="file" onChange={uploadImage} />
               <i className="fa fa-upload"></i>
             </label>
-          </div>
+          </div> */}
         </div>
       </div>
-      <button className="new_post" id="post_button" onClick={validatePost}>
+      <button
+        type="button"
+        className="new_post"
+        id="post_button"
+        onClick={validatePost}
+      >
         new post
       </button>
       <div className="user_lists">

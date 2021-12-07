@@ -6,8 +6,6 @@ import { logout } from "../../../redux/features/user_reducer";
 function Nav({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
-  // alert(user);
-  console.log(user);
 
   // Logout
   const logoutUser = () => {

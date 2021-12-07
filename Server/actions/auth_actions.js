@@ -98,7 +98,7 @@ const Login = async (req, res) => {
           UserSessionObject.Avatar = result[0][0].Avatar.length == 1
           // Image - A
             ? "/Images/Avatars/Image - " + result[0][0].Avatar + ".jpg"
-            : "/Images/Avatars/" + result[0][0].Avatar;
+            : "/Images/Uploads/" + result[0][0].Avatar;
           UserSessionObject.Status = result[0][0].Status;
 
           // Setting up the session

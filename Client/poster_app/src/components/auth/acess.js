@@ -1,12 +1,17 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { fillUser } from "../../redux/features/user";
+import { login } from "../../redux/features/user_reducer";
 
 function Access() {
-  axios.defaults.withCredentials = true;
+  const history = useHistory();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [isLogged, setLogged] = useState(
+    sessionStorage.getItem("loggedStatus")
+  );
+  axios.defaults.withCredentials = true;
 
   const loginBtn = async (e) => {
     e.preventDefault();
@@ -19,20 +24,34 @@ function Access() {
       .then((res) => {
         if (typeof res.data.Message !== "object") {
           alert(res.data.Message);
+          localStorage.setItem(
+            "isLogged",
+            JSON.stringify({ isLogged: false, data: null })
+          );
         } else {
-          // Update user state
-          const passObj = {
-            __id: res.data.Message.UserID,
-            __username: res.data.Message.Username,
-            __password: res.data.Message.Password,
-            __avatar: res.data.Message.Avatar,
-            __status: res.data.Message.Status,
+          const messageData = {
+            isLogged: true,
+            data: {
+              id: res.data.Message.UserID,
+              username: res.data.Message.Username,
+              password: res.data.Message.Password,
+              avatar: res.data.Message.Avatar,
+            },
           };
-          dispatch(fillUser(passObj));
-          window.location.href = "/";
+
+          dispatch(login(JSON.stringify(messageData)));
+
+          // After successful login push to the home
+          history.push("/");
         }
       });
   };
+
+  useEffect(() => {
+    setLogged(sessionStorage.getItem("loggedStatus"));
+  }, [location]);
+
+  isLogged && history.push("/");
 
   return (
     <div className="__auth__container">

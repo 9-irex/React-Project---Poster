@@ -5,12 +5,12 @@ const router = express.Router();
 const {
   Register,
   Login,
-  LoginView,
+  isLogged,
   LogoutUser,
 } = require("../actions/auth_actions");
 
 // Develop routes
 router.route("/register").post(Register);
-router.route("/login").post(Login).get(LoginView);
+router.route("/login").post(Login).get(isLogged);
 router.route("/logout").get(LogoutUser);
 module.exports = router;

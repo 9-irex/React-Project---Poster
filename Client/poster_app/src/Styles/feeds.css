@@ -59,11 +59,7 @@
   flex-direction: column;
 }
 
-.__feed_container
-  .wrapper
-  .navigation__side
-  div:nth-child(1)
-  .icon:nth-child(2) {
+.__feed_container .wrapper .navigation__side div:nth-child(1) .icon:nth-child(2) {
   margin: 19pt 0;
 }
 
@@ -111,6 +107,10 @@
   align-items: center;
   position: relative;
   cursor: pointer;
+}
+
+.__feed_container .wrapper .navigation__side div .icon:first-child {
+  bottom: 13pt;
 }
 
 .__feed_container .wrapper .navigation__side div .icon i {
@@ -276,13 +276,7 @@
   object-fit: cover;
 }
 
-.__feed_container
-  .wrapper
-  .feed_bar
-  .post_form
-  .post_wrapper
-  .image_post
-  .label {
+.__feed_container .wrapper .feed_bar .post_form .post_wrapper .image_post .label {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -317,14 +311,7 @@
   transition: 0.3s;
 }
 
-.__feed_container
-  .wrapper
-  .feed_bar
-  .post_form
-  .post_wrapper
-  .image_post
-  .label
-  i {
+.__feed_container .wrapper .feed_bar .post_form .post_wrapper .image_post .label i {
   color: #ffffff;
 }
 
@@ -483,15 +470,7 @@
   margin-right: 7pt;
 }
 
-.__feed_container
-  .wrapper
-  .feed_bar
-  .user_lists
-  .body
-  .user
-  div
-  .user_image
-  img {
+.__feed_container .wrapper .feed_bar .user_lists .body .user div .user_image img {
   top: 0;
   left: 0;
   width: 100%;
@@ -815,14 +794,7 @@
   flex-direction: column;
 }
 
-.__feed_container
-  .wrapper
-  .notifications
-  .wrapper
-  .holder
-  .requests
-  .wrapper
-  .item {
+.__feed_container .wrapper .notifications .wrapper .holder .requests .wrapper .item {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -982,13 +954,7 @@
   margin-top: 20pt;
 }
 
-.__feed_container
-  .wrapper
-  .notifications
-  .wrapper
-  .holder
-  .suggestions
-  .wrapper {
+.__feed_container .wrapper .notifications .wrapper .holder .suggestions .wrapper {
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -1159,13 +1125,7 @@
   width: 100%;
 }
 
-.__feed_container
-  .wrapper
-  .notifications
-  .wrapper
-  .holder
-  .not_alerts
-  .wrapper {
+.__feed_container .wrapper .notifications .wrapper .holder .not_alerts .wrapper {
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -1336,13 +1296,7 @@
   width: 100%;
 }
 
-.__feed_container
-  .wrapper
-  .notifications
-  .wrapper
-  .holder
-  .profile_view
-  .wrapper {
+.__feed_container .wrapper .notifications .wrapper .holder .profile_view .wrapper {
   width: 100%;
   height: 100%;
   display: -webkit-box;

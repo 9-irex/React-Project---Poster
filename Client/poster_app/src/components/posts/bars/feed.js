@@ -1,6 +1,35 @@
 import React from "react";
+import $ from "jquery";
+import { useState } from "react";
 
 function Feed() {
+  const [canPost, setCanPost] = useState(false);
+  const Animate = () => {
+    let postButton = document.querySelector("#post_button");
+    let postForm = document.querySelector(".post_form");
+
+    postButton.classList.toggle("make_post");
+    postButton.classList.toggle("new_post");
+    $(postForm).slideToggle(400);
+
+    if (canPost === false) {
+      postButton.textContent = "Share Post";
+    } else {
+      postButton.textContent = "New Post";
+    }
+    setCanPost(!canPost);
+  };
+
+  const sharePost = () => {
+    // Implement 
+  };
+
+  const validatePost = () => {
+    // Animate or Toggle
+    Animate();
+    canPost && sharePost();
+  };
+
   return (
     <div className="feed_bar">
       <p className="title">
@@ -25,7 +54,7 @@ function Feed() {
           </div>
         </div>
       </div>
-      <button className="new_post" id="post_button">
+      <button className="new_post" id="post_button" onClick={validatePost}>
         new post
       </button>
       <div className="user_lists">

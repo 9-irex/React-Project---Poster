@@ -1,6 +1,6 @@
 import React from "react";
 
-function Notifications() {
+function Notifications({ user }) {
   return (
     <div className="notifications">
       <div className="wrapper">
@@ -15,9 +15,9 @@ function Notifications() {
           </div>
           <div className="user_profile link">
             <div className="profile">
-              <img src="/Images/Random/one.jpg" alt="" />
+              <img src={user.data.avatar} alt="" />
             </div>
-            <p>@deiron-10</p>
+            <p>@{user.data.username}</p>
           </div>
         </div>
 

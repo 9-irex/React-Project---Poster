@@ -1,9 +1,21 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/features/user_reducer";
 
-function Nav() {
-  const user = useSelector((state) => state.user.value);
+function Nav({ user }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  // alert(user);
   console.log(user);
+
+  // Logout
+  const logoutUser = () => {
+    dispatch(logout());
+
+    history.push("/access");
+  };
+
   return (
     <div className="navigation__side">
       <div>
@@ -18,12 +30,15 @@ function Nav() {
         </div>
       </div>
       <div>
+        <div className="icon" onClick={logoutUser}>
+          <i className="fas fa-power-off"></i>
+        </div>
         <div className="icon">
           <i className="fa fa-cog"></i>
         </div>
         <div className="indicator">
           <div className="profile">
-            <img src={user.__avatar} alt="Preview" />
+            <img src={user.data.avatar} alt="Preview" />
           </div>
         </div>
       </div>

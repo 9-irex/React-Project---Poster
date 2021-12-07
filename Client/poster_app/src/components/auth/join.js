@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Join() {
+  const history = useHistory();
+  const location = useLocation();
+  const [isLogged, setLogged] = useState(
+    sessionStorage.getItem("loggedStatus")
+  );
+
   const registerBtn = (e) => {
     e.preventDefault();
     axios
@@ -28,6 +35,11 @@ function Join() {
       });
   };
 
+  useEffect(() => {
+    setLogged(sessionStorage.getItem("loggedStatus"));
+  }, [location]);
+
+  isLogged && history.push("/");
   return (
     <div className="__auth__container">
       <div className="wrapper">

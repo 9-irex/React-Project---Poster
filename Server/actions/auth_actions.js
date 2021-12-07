@@ -95,18 +95,14 @@ const Login = async (req, res) => {
           UserSessionObject.UserID = result[0][0].UserID;
           UserSessionObject.Username = result[0][0].Username;
           UserSessionObject.Password = result[0][0].Password;
-          if ((result[0][0].Avatar.length = 1)) {
-            // random images
-            UserSessionObject.Avatar =
-              "/Images/Avatars/" + result[0][0].Avatar + ".jpg";
-          } else {
-            "/Images/Avatars/" + result[0][0].Avatar;
-          }
+          UserSessionObject.Avatar = result[0][0].Avatar.length == 1
+          // Image - A
+            ? "/Images/Avatars/Image - " + result[0][0].Avatar + ".jpg"
+            : "/Images/Avatars/" + result[0][0].Avatar;
           UserSessionObject.Status = result[0][0].Status;
 
           // Setting up the session
           sessionHoster = req.session;
-          // sessionHoster.userCredentials = UserSessionObject;
 
           // Hashing The Password
           Bcrypt.compare(Password, result[0][0].Password, (error, result) => {
@@ -136,7 +132,7 @@ const Login = async (req, res) => {
   );
 };
 
-const LoginView = (req, res) => {
+const isLogged = (req, res) => {
   if (!req.session.userCredentials) {
     sendResponse(req, res, 200, { isLoggedIn: false, userCredentials: null });
   } else {
@@ -152,4 +148,4 @@ const LogoutUser = (req, res) => {
   res.send("Session has been destroyed");
 };
 
-module.exports = { Register, Login, LoginView, LogoutUser };
+module.exports = { Register, Login, isLogged, LogoutUser };

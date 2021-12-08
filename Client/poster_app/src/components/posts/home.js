@@ -4,7 +4,7 @@ import Nav from "./bars/nav";
 import Feed from "./bars/feed";
 import Posts from "./bars/posts";
 import Notifications from "./bars/notifications";
-// import { getPosts, initializePost } from "../../redux/features/post_reducer";
+import { getPost, initializePost } from "../../redux/features/post_reducer";
 import { useDispatch } from "react-redux";
 
 function Home() {
@@ -24,6 +24,23 @@ function Home() {
     isLogged && sendRender(true);
   }, [isLogged, location]);
 
+  useEffect(() => {
+    dispatch(
+      initializePost({
+        Title: "",
+        Image: "",
+        UserID: "",
+        Date: "",
+        Type: "Get_Post",
+      })
+    );
+
+    try {
+      dispatch(getPost());
+    } catch (error) {
+      console.log("Catch Error", error);
+    }
+  }, [dispatch]);
   !isLogged && history.push("/access");
 
   return (

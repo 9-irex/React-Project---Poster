@@ -68,7 +68,7 @@ const GetPosts = (req, res) => {
 
   const query = "CALL pr_post(?,?,?,?,?,?)";
 
-  db.query(query, ["", "", "", "", "", Type], (error, result, fields) => {
+  db.query(query, ["", "", "", "", "", Type], (error, result) => {
     if (error) {
       sendResponse(req, res, 200, {
         Error: error,

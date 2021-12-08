@@ -9,7 +9,7 @@ const Auth = require("./routes/auth_routes");
 const Post = require("./routes/post_routes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-const clientUrl = "http://localhost:3000/api/v1/poster";
+const clientUrl = "http://localhost:3000";
 const sessionAge = 1000 * 60 * 60 * 24;
 
 // Middlwares

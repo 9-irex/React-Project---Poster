@@ -21,14 +21,24 @@ export const PostSlice = createSlice({
           alert(result.data.Message);
         }
       });
+
+      // Format data
       state.value = defaultState;
     },
     initializePost: (state, action) => {
       state.value = action.payload;
     },
+    getPost: (state) => {
+      instance.get("/posts").then((result) => {
+        console.log(result);
+      });
+
+      // Format data
+      state.value = defaultState;
+    },
   },
 });
 
-export const { sendPost, initializePost } = PostSlice.actions;
+export const { sendPost, initializePost, getPost } = PostSlice.actions;
 
 export default PostSlice.reducer;

@@ -58,17 +58,15 @@ const Upload = (req, res) => {
   } catch (error) {
     sendResponse(req, res, 200, {
       Error: error,
-      Message: "CacheError",
+      Message: error.message,
     });
   }
 };
 
-const GetPosts = (req, res) => {
-  const { Type } = req.body;
-
+const GetAllPosts = async (req, res) => {
   const query = "CALL pr_post(?,?,?,?,?,?)";
 
-  db.query(query, ["", "", "", "", "", Type], (error, result) => {
+  await db.query(query, ["", "", "", "", "", "Get_Post"], (error, result) => {
     if (error) {
       sendResponse(req, res, 200, {
         Error: error,
@@ -77,10 +75,10 @@ const GetPosts = (req, res) => {
     } else {
       sendResponse(req, res, 200, {
         Error: null,
-        Message: result,
+        Message: result[0],
       });
     }
   });
 };
 
-module.exports = { SendPost, Upload, GetPosts };
+module.exports = { SendPost, Upload, GetAllPosts };

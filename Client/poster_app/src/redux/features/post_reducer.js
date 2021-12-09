@@ -1,44 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
 import instance from "../../axios";
 
-const defaultState = {
-  Title: "",
-  Image: "",
-  UserID: "",
-  Date: "",
-  Type: "",
+const setUpState = {
+  postArgs: {
+    Title: "",
+    Image: "",
+    UserID: "",
+    Date: "",
+    Type: "",
+  },
+  postLists: [],
 };
 
 export const PostSlice = createSlice({
-  name: "Posts",
+  name: "post",
   initialState: {
-    value: defaultState,
+    value: setUpState,
   },
   reducers: {
     sendPost: (state) => {
-      instance.post("/posts", state.value).then((result) => {
+      instance.post("/manage_posts", state.value.postArgs).then((result) => {
         if (result.data.Error !== null) {
           alert(result.data.Message);
         }
       });
 
       // Format data
-      state.value = defaultState;
+      state.value.postArgs = setUpState.postArgs;
     },
     initializePost: (state, action) => {
-      state.value = action.payload;
+      state.value.postArgs = action.payload;
     },
-    getPost: (state) => {
-      instance.get("/posts").then((result) => {
-        console.log(result);
-      });
-
-      // Format data
-      state.value = defaultState;
+    setListPosts: (state, actions) => {
+      state.value.postLists = actions.payload;
     },
   },
 });
 
-export const { sendPost, initializePost, getPost } = PostSlice.actions;
+export const { sendPost, initializePost, setListPosts } = PostSlice.actions;
 
 export default PostSlice.reducer;

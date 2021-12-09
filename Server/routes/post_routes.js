@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const { SendPost, Upload, GetPosts } = require("../actions/post_actions");
+const { SendPost, Upload, GetAllPosts } = require("../actions/post_actions");
 
-router.route("/posts").post(SendPost).get(GetPosts);
+router.route("/manage_posts").post(SendPost);
+router.route("/all_posts").get(GetAllPosts);
 router.route("/upload").post(Upload);
 
 module.exports = router;

@@ -4,8 +4,9 @@ import Nav from "./bars/nav";
 import Feed from "./bars/feed";
 import Posts from "./bars/posts";
 import Notifications from "./bars/notifications";
-import { getPost, initializePost } from "../../redux/features/post_reducer";
-import { useDispatch } from "react-redux";
+import { setListPosts } from "../../redux/features/post_reducer";
+import { useDispatch, useSelector } from "react-redux";
+import instance from "../../axios";
 
 function Home() {
   const history = useHistory();
@@ -14,6 +15,7 @@ function Home() {
   const [isLogged, setLogged] = useState(
     sessionStorage.getItem("loggedStatus")
   );
+  const postLists = useSelector((state) => state.post.value.postLists);
   const [render, sendRender] = useState(false);
 
   useEffect(() => {
@@ -25,22 +27,13 @@ function Home() {
   }, [isLogged, location]);
 
   useEffect(() => {
-    dispatch(
-      initializePost({
-        Title: "",
-        Image: "",
-        UserID: "",
-        Date: "",
-        Type: "Get_Post",
-      })
-    );
-
-    try {
-      dispatch(getPost());
-    } catch (error) {
-      console.log("Catch Error", error);
-    }
+    instance.get("/all_posts").then((response) => {
+      if (response.data.Error == null) {
+        dispatch(setListPosts(response.data.Message));
+      }
+    });
   }, [dispatch]);
+
   !isLogged && history.push("/access");
 
   return (
@@ -49,7 +42,7 @@ function Home() {
         <div className="wrapper">
           <Nav user={JSON.parse(isLogged)} />
           <Feed />
-          <Posts />
+          <Posts posts={postLists} />
           <Notifications user={JSON.parse(isLogged)} />
         </div>
       </div>

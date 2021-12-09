@@ -1,7 +1,6 @@
 import React from "react";
 import $ from "jquery";
 import { useState } from "react";
-import instance from "../../../axios";
 import { useDispatch } from "react-redux";
 import { initializePost, sendPost } from "../../../redux/features/post_reducer";
 
@@ -9,7 +8,8 @@ function Feed() {
   const [canPost, setCanPost] = useState(false);
   const dispatch = useDispatch();
   const [Title, setTitle] = useState("");
-  const [postImage, setPostImage] = useState("");
+  const [postImage, setPostImage] = useState();
+  const [previewIMG, setPreviewIMG] = useState("");
 
   const Animate = () => {
     let postButton = document.querySelector("#post_button");
@@ -27,31 +27,26 @@ function Feed() {
     setCanPost(!canPost);
   };
 
-  // function displayImage(fileIMG) {
-  //   if (fileIMG.files[0]) {
-  //     var reader = new FileReader();
-  //     reader.onload = function (fileIMG) {
-  //       var previewImage = document.querySelector(".image_post .previewIMG");
-  //       previewImage.setAttribute("src", fileIMG.target.result);
-  //     };
-  //   }
-  // }
-
-  // const uploadImage = () => {
-  //   const formdata = new FormData();
-  //   const fileImg = document.getElementById("file");
-  //   formdata.append("postImage", fileImg.files[0]);
-  //   // displayImage(fileImg);
-  //   instance.post("/upload", formdata).then((resposne) => {
-  //     // resposne.data.Error === null
-  //     //   ? setPostImage(fileImg.name) && displayImage(e)
-  //     //   : setPostImage("");
-  //   });
-  // };
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        setPreviewIMG(fileReader.result);
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
+    setPostImage(base64);
+  };
 
   const validatePost = () => {
-    // e.preventDefault();
-    // Animate or Toggle
     Animate();
 
     if (canPost) {
@@ -84,17 +79,19 @@ function Feed() {
             className="post_title"
             onChange={(e) => setTitle(e.target.value)}
           ></textarea>
-          {/* <div className="image_post">
+          <div className="image_post">
             <img
-              src="/Images/Random/poster_1.jpg"
+              src={
+                previewIMG !== "" ? previewIMG : "/Images/Random/poster_1.jpg"
+              }
               className="previewIMG"
               alt="iagent"
             />
             <label className="label">
-              <input type="file" id="file" onChange={uploadImage} />
+              <input type="file" id="file" onChange={handleFileUpload} />
               <i className="fa fa-upload"></i>
             </label>
-          </div> */}
+          </div>
         </div>
       </div>
       <button

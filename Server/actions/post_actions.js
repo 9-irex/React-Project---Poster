@@ -31,6 +31,7 @@ const SendPost = (req, res) => {
 const Upload = (req, res) => {
   try {
     let _upload = multer({ storage: storage }).single("postImage");
+
     _upload(req, res, (err) => {
       // Check if the image is been uploaded successfully
       if (!req.file) {
@@ -51,7 +52,7 @@ const Upload = (req, res) => {
       } else {
         sendResponse(req, res, 200, {
           Error: null,
-          Message: "Image uploaded successfully",
+          Message: req.file.filename,
         });
       }
     });

@@ -36,7 +36,7 @@ function Nav({ user }) {
         </div>
         <div className="indicator">
           <div className="profile">
-            <img src={user.data.avatar} alt="Preview" />
+            <img src={user.avatar} alt="Preview" />
           </div>
         </div>
       </div>

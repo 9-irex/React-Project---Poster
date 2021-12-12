@@ -7,7 +7,6 @@ import "./Widgets.css";
 import "./styles/auth.css";
 import "./styles/feeds.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import "./effects";
 import ErrorPage from "./components/error_page";
 
 function App() {

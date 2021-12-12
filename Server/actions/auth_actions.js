@@ -95,10 +95,11 @@ const Login = async (req, res) => {
           UserSessionObject.UserID = result[0][0].UserID;
           UserSessionObject.Username = result[0][0].Username;
           UserSessionObject.Password = result[0][0].Password;
-          UserSessionObject.Avatar = result[0][0].Avatar.length == 1
-          // Image - A
-            ? "/Images/Avatars/Image - " + result[0][0].Avatar + ".jpg"
-            : "/Images/Uploads/" + result[0][0].Avatar;
+          UserSessionObject.Avatar =
+            result[0][0].Avatar.length == 1
+              ? // Image - A
+                "/Images/Avatars/Image - " + result[0][0].Avatar + ".jpg"
+              : "/Images/Uploads/" + result[0][0].Avatar;
           UserSessionObject.Status = result[0][0].Status;
 
           // Setting up the session
@@ -148,4 +149,20 @@ const LogoutUser = (req, res) => {
   res.send("Session has been destroyed");
 };
 
-module.exports = { Register, Login, isLogged, LogoutUser };
+const getDetails = (req, res) => {
+  const { id } = req.params;
+  const query = "CALL pr_auth(?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(
+    query,
+    [id, "", "", "", "", "", "", "", "", "", ""],
+    (error, result) => {
+      if (error) {
+        sendResponse(req, res, 200, { Error: error, Message: "Query Error" });
+      } else {
+        sendResponse(req, res, 200, { Error: null, Message: result });
+      }
+    }
+  );
+};
+
+module.exports = { Register, Login, isLogged, LogoutUser, getDetails };

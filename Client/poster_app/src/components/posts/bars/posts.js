@@ -1,4 +1,5 @@
 import React from "react";
+import getElapsedTime from "../../../timing";
 
 function Posts({ posts }) {
   return (
@@ -10,11 +11,20 @@ function Posts({ posts }) {
               <div className="top__bar">
                 <div>
                   <div className="image">
-                    <img src="/Images/Random/three.jpg" alt="" />
+                    <img
+                      src={
+                        post.Avatar.length === 1
+                          ? "/Images/Avatars/Image - " + post.Avatar + ".jpg"
+                          : "Images/Uploads/" + post.Avatar
+                      }
+                      alt=""
+                    />
                   </div>
                   <div>
                     <span className="name">{post.Name}</span>
-                    <span className="date">2 mins ago</span>
+                    <span className="date">
+                      {getElapsedTime(post.Date.toString()).Date_String}
+                    </span>
                   </div>
                 </div>
                 <i className="fa fa-bars"></i>
@@ -22,7 +32,7 @@ function Posts({ posts }) {
               <div className="postTitle">{post.Title}</div>
               {post.Image !== "" && (
                 <div className="middle_bar">
-                  <img src={post.Image} alt="" />
+                  <img src={"/Images/Uploads/" + post.Image} alt="" />
                 </div>
               )}
               <div className="last__bar">

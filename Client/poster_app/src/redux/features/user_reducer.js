@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userState = {
+  isLogged: false,
   id: "",
   username: "",
   password: "",
@@ -17,7 +18,7 @@ export const UserSlice = createSlice({
     login: (state, action) => {
       state.value = action.payload;
       //Craete sessionStorage
-      sessionStorage.setItem("loggedStatus", action.payload);
+      sessionStorage.setItem("loggedStatus", JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.value = userState;

@@ -7,16 +7,17 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const Auth = require("./routes/auth_routes");
 const Post = require("./routes/post_routes");
+const Requests = require("./routes/request_routes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const clientUrl = "http://localhost:3000";
+const phpUrl = "http://localhost/";
 const sessionAge = 1000 * 60 * 60 * 24;
 
 // Middlwares
 app.use(
   cors({
-    origin: [clientUrl],
-    methods: ["GET", "POST"],
+    origin: clientUrl,
     credentials: true,
   })
 );
@@ -38,6 +39,7 @@ app.use(
 // call routes
 app.use("/api/v1/poster", Auth);
 app.use("/api/v1/poster", Post);
+app.use("/api/v1/poster", Requests);
 
 // Initialize the port number
 const port = 4000;

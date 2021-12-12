@@ -7,6 +7,11 @@ import Notifications from "./bars/notifications";
 import { setListPosts } from "../../redux/features/post_reducer";
 import { useDispatch, useSelector } from "react-redux";
 import instance from "../../axios";
+import {
+  getRequest,
+  getSuggest,
+  clearRequestList,
+} from "../../redux/features/request_reducer";
 
 function Home() {
   const history = useHistory();
@@ -16,6 +21,8 @@ function Home() {
     sessionStorage.getItem("loggedStatus")
   );
   const postLists = useSelector((state) => state.post.value.postLists);
+  const suggestLists = useSelector((state) => state.request.value.suggests);
+  const requestLists = useSelector((state) => state.request.value.reqList);
   const [render, sendRender] = useState(false);
 
   useEffect(() => {
@@ -34,6 +41,28 @@ function Home() {
     });
   }, [dispatch]);
 
+  useEffect(() => {
+    isLogged &&
+      instance.get("/suggest/" + JSON.parse(isLogged).id).then((response) => {
+        dispatch(getSuggest(response.data.Message));
+      });
+  }, [dispatch, isLogged]);
+
+  useEffect(() => {
+    // clear request list
+    dispatch(clearRequestList());
+    instance
+      .get("/request/" + JSON.parse(isLogged)?.id + "/Request_sent")
+      .then((response) => {
+        dispatch(getRequest(response.data.Message));
+      });
+    instance
+      .get("/request/" + JSON.parse(isLogged)?.id + "/Request_recieved")
+      .then((response) => {
+        dispatch(getRequest(response.data.Message));
+      });
+  }, [dispatch, isLogged]);
+
   !isLogged && history.push("/access");
 
   return (
@@ -43,7 +72,11 @@ function Home() {
           <Nav user={JSON.parse(isLogged)} />
           <Feed />
           <Posts posts={postLists} />
-          <Notifications user={JSON.parse(isLogged)} />
+          <Notifications
+            user={JSON.parse(isLogged)}
+            suggests={suggestLists}
+            requestList={requestLists}
+          />
         </div>
       </div>
     )

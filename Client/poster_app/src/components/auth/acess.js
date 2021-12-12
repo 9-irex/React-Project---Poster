@@ -31,15 +31,14 @@ function Access() {
         } else {
           const messageData = {
             isLogged: true,
-            data: {
-              id: res.data.Message.UserID,
-              username: res.data.Message.Username,
-              password: res.data.Message.Password,
-              avatar: res.data.Message.Avatar,
-            },
+            id: res.data.Message.UserID,
+            username: res.data.Message.Username,
+            password: res.data.Message.Password,
+            avatar: res.data.Message.Avatar,
+            status: res.data.Message.Status,
           };
 
-          dispatch(login(JSON.stringify(messageData)));
+          dispatch(login(messageData));
 
           // After successful login push to the home
           history.push("/");

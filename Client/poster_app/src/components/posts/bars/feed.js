@@ -3,12 +3,13 @@ import $ from "jquery";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { initializePost, sendPost } from "../../../redux/features/post_reducer";
+import instance from "../../../axios";
 
 function Feed() {
   const [canPost, setCanPost] = useState(false);
   const dispatch = useDispatch();
   const [Title, setTitle] = useState("");
-  const [postImage, setPostImage] = useState();
+  const [postImage, setPostImage] = useState("");
   const [previewIMG, setPreviewIMG] = useState("");
 
   const Animate = () => {
@@ -27,35 +28,56 @@ function Feed() {
     setCanPost(!canPost);
   };
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        setPreviewIMG(fileReader.result);
-        resolve(fileReader.result);
+  // const convertToBase64 = (file) => {
+  //   return new Promise((resolve, reject) => {
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+  //     fileReader.onload = () => {
+  //       setPreviewIMG(fileReader.result);
+  //       resolve(fileReader.result);
+  //     };
+  //     fileReader.onerror = (error) => {
+  //       reject(error);
+  //     };
+  //   });
+  // };
+
+  function displayImage(e) {
+    if (e) {
+      var reader = new FileReader();
+      reader.readAsDataURL(e);
+      reader.onload = function (e) {
+        setPreviewIMG(reader.result);
       };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+    }
+  }
+
   const handleFileUpload = async (e) => {
+    e.preventDefault();
+    const form_data = new FormData();
     const file = e.target.files[0];
-    const base64 = await convertToBase64(file);
-    setPostImage(base64);
+    displayImage(file);
+    form_data.append("postImage", file);
+    const response = await instance.post("/upload", form_data);
+    // const base64 = await convertToBase64(file);
+    setPostImage(response.data.Message);
   };
 
   const validatePost = () => {
     Animate();
 
     if (canPost) {
+      const date = new Date();
+      var left =
+        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+      var right =
+        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
       dispatch(
         initializePost({
           Title: Title,
           Image: postImage,
           UserID: JSON.parse(sessionStorage.getItem("loggedStatus")).data.id,
-          Date: Date.now(),
+          Date: left + " " + right,
           Type: "New_Post",
         })
       );

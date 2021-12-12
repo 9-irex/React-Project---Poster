@@ -64,6 +64,48 @@ const Upload = (req, res) => {
   }
 };
 
+const Like = (req, res) => {
+  const { PostID, Title, Type } = req.body;
+
+  const query = "CALL pr_post(?,?,?,?,?,?)";
+
+  db.query(query, [PostID, Title, "", "", "", Type], (error, result) => {
+    if (error) {
+      sendResponse(req, res, 200, {
+        Error: error,
+        Message: "Query Error",
+      });
+    } else {
+      sendResponse(req, res, 200, {
+        Error: null,
+        Message: result,
+      });
+    }
+  });
+};
+
+const Unlike = (req, res) => {
+  const { PostID, Title, Type } = req.body;
+
+  const query = "CALL pr_post(?,?,?,?,?,?)";
+
+  db.query(query, [PostID, Title, "", "", "", Type], (error, result) => {
+    if (error) {
+      sendResponse(req, res, 200, {
+        Error: error,
+        Message: "Query Error",
+      });
+    } else {
+      sendResponse(req, res, 200, {
+        Error: null,
+        Message: result,
+      });
+    }
+  });
+};
+
+const Share = (req, res) => {};
+
 const GetAllPosts = async (req, res) => {
   const query = "CALL pr_post(?,?,?,?,?,?)";
 
@@ -82,4 +124,4 @@ const GetAllPosts = async (req, res) => {
   });
 };
 
-module.exports = { SendPost, Upload, GetAllPosts };
+module.exports = { SendPost, Upload, GetAllPosts, Like, Share, Unlike };

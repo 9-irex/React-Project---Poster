@@ -70,10 +70,34 @@ const cancelRequest = (req, res) => {
   });
 };
 
+const MostFollowed = (req, res) => {
+  const query = "CALL pr_friend(?,?,?,?,?)";
+  db.query(query, ["", "", "", "MostFollowed", ""], (error, result) => {
+    if (error) {
+      sendResponse(req, res, 200, { Error: error, Message: "Query Error" });
+    } else {
+      sendResponse(req, res, 200, { Error: null, Message: result[0] });
+    }
+  });
+};
+
+const MostActive = (req, res) => {
+  const query = "CALL pr_friend(?,?,?,?,?)";
+  db.query(query, ["", "", "", "MostActive", ""], (error, result) => {
+    if (error) {
+      sendResponse(req, res, 200, { Error: error, Message: "Query Error" });
+    } else {
+      sendResponse(req, res, 200, { Error: null, Message: result[0] });
+    }
+  });
+};
+
 module.exports = {
   fetchSuggest,
   fetchRequest,
   acceptRequest,
   sendRequest,
   cancelRequest,
+  MostFollowed,
+  MostActive,
 };

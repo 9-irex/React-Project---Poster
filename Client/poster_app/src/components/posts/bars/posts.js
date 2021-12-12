@@ -1,7 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import getElapsedTime from "../../../timing";
+import { useDispatch } from "react-redux";
+import {
+  initializePost,
+  likePosts,
+  unlikePosts,
+} from "../../../redux/features/post_reducer";
 
 function Posts({ posts }) {
+  const dispatch = useDispatch();
+  const [like_toggle, setLikeToggle] = useState(1);
+
+  const LikePost = (id, e) => {
+    if (like_toggle === 1) {
+      dispatch(
+        initializePost({
+          PostID: id,
+          Title: 1,
+          Image: "",
+          UserID: "",
+          Date: "",
+          Type: "Like",
+        })
+      );
+      dispatch(likePosts());
+      setLikeToggle(2);
+    } else {
+      dispatch(
+        initializePost({
+          PostID: id,
+          Title: "",
+          Image: "",
+          UserID: "",
+          Date: "",
+          Type: "Unlike",
+        })
+      );
+      dispatch(unlikePosts());
+      setLikeToggle(1);
+    }
+    e.target.classList.toggle("fa-heart-class-toggler");
+  };
+
   return (
     <div className="posts">
       <div className="wrapper">
@@ -36,17 +76,17 @@ function Posts({ posts }) {
                 </div>
               )}
               <div className="last__bar">
-                <div>
+                <div onClick={(e) => LikePost(post.PostID, e)}>
                   <i className="fa fa-heart"></i>
-                  <p>23.7K</p>
+                  <p>{post.Likes}</p>
                 </div>
                 <div>
                   <i className="fa fa-comment"></i>
-                  <p>12.3K</p>
+                  <p>0</p>
                 </div>
                 <div>
                   <i className="fa fa-share"></i>
-                  <p>234.4K</p>
+                  <p>{post.Shares}</p>
                 </div>
               </div>
             </div>

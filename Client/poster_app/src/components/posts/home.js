@@ -24,6 +24,8 @@ function Home() {
   const suggestLists = useSelector((state) => state.request.value.suggests);
   const requestLists = useSelector((state) => state.request.value.reqList);
   const [render, sendRender] = useState(false);
+  const [mostFollowed, setMostFollowed] = useState([]);
+  const [mostActive, setMostActive] = useState([]);
 
   useEffect(() => {
     setLogged(sessionStorage.getItem("loggedStatus"));
@@ -63,6 +65,18 @@ function Home() {
       });
   }, [dispatch, isLogged]);
 
+  useEffect(() => {
+    instance.get("/followed").then((result) => {
+      setMostFollowed(result.data.Message);
+    });
+  }, []);
+
+  useEffect(() => {
+    instance.get("/active").then((result) => {
+      setMostActive(result.data.Message);
+    });
+  }, []);
+
   !isLogged && history.push("/access");
 
   return (
@@ -70,7 +84,11 @@ function Home() {
       <div className="__feed__container">
         <div className="wrapper">
           <Nav user={JSON.parse(isLogged)} />
-          <Feed />
+          <Feed
+            user={JSON.parse(isLogged)}
+            mostFollowed={mostFollowed}
+            mostActive={mostActive}
+          />
           <Posts posts={postLists} />
           <Notifications
             user={JSON.parse(isLogged)}

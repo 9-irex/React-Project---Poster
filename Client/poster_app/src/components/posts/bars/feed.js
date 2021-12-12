@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { initializePost, sendPost } from "../../../redux/features/post_reducer";
 import instance from "../../../axios";
 
-function Feed() {
+function Feed({ user, mostFollowed, mostActive }) {
   const [canPost, setCanPost] = useState(false);
   const dispatch = useDispatch();
   const [Title, setTitle] = useState("");
@@ -74,9 +74,10 @@ function Feed() {
         date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
       dispatch(
         initializePost({
+          PostID: "",
           Title: Title,
           Image: postImage,
-          UserID: JSON.parse(sessionStorage.getItem("loggedStatus")).data.id,
+          UserID: user.id,
           Date: left + " " + right,
           Type: "New_Post",
         })
@@ -133,51 +134,24 @@ function Feed() {
           <i className="fa fa-chart-line"></i>
         </div>
         <div className="body">
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/four.jpg" alt="" />
+          {mostFollowed.map((user) => (
+            <div className="user">
+              <div>
+                <div className="user_image">
+                  <img
+                    src={
+                      user.Avatar.length === 1
+                        ? "/Images/Avatars/Image - " + user.Avatar + ".jpg"
+                        : "Images/Uploads/" + user.Avatar
+                    }
+                    alt=""
+                  />
+                </div>
+                <span className="user_name">@{user.Username}</span>
               </div>
-              <span className="user_name">@deiron-10</span>
+              <div className="number">{user.followers}</div>
             </div>
-            <div className="number">23.5K</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/one.jpg" alt="" />
-              </div>
-              <span className="user_name">@aftaab67</span>
-            </div>
-            <div className="number">23.5K</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/two.jpg" alt="" />
-              </div>
-              <span className="user_name">@mathews</span>
-            </div>
-            <div className="number">23.5K</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/man_1.jpg" alt="" />
-              </div>
-              <span className="user_name">@vegas</span>
-            </div>
-            <div className="number">23.5K</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/three.jpg" alt="" />
-              </div>
-              <span className="user_name">@grand</span>
-            </div>
-            <div className="number">23.5K</div>
-          </div>
+          ))}
         </div>
       </div>
 
@@ -190,51 +164,24 @@ function Feed() {
           <i className="fa fa-chart-line"></i>
         </div>
         <div className="body">
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/four.jpg" alt="" />
+          {mostActive.map((user) => (
+            <div className="user">
+              <div>
+                <div className="user_image">
+                  <img
+                    src={
+                      user.Avatar.length === 1
+                        ? "/Images/Avatars/Image - " + user.Avatar + ".jpg"
+                        : "Images/Uploads/" + user.Avatar
+                    }
+                    alt=""
+                  />
+                </div>
+                <span className="user_name">@{user.Username}</span>
               </div>
-              <span className="user_name">@deiron-10</span>
+              <div className="number">{user.posted}%</div>
             </div>
-            <div className="number">23%</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/one.jpg" alt="" />
-              </div>
-              <span className="user_name">@aftaab67</span>
-            </div>
-            <div className="number">23%</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/two.jpg" alt="" />
-              </div>
-              <span className="user_name">@mathews</span>
-            </div>
-            <div className="number">23%</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/man_1.jpg" alt="" />
-              </div>
-              <span className="user_name">@vegas</span>
-            </div>
-            <div className="number">23%</div>
-          </div>
-          <div className="user">
-            <div>
-              <div className="user_image">
-                <img src="/Images/Random/three.jpg" alt="" />
-              </div>
-              <span className="user_name">@grand</span>
-            </div>
-            <div className="number">23%</div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

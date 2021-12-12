@@ -149,20 +149,4 @@ const LogoutUser = (req, res) => {
   res.send("Session has been destroyed");
 };
 
-const getDetails = (req, res) => {
-  const { id } = req.params;
-  const query = "CALL pr_auth(?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(
-    query,
-    [id, "", "", "", "", "", "", "", "", "", ""],
-    (error, result) => {
-      if (error) {
-        sendResponse(req, res, 200, { Error: error, Message: "Query Error" });
-      } else {
-        sendResponse(req, res, 200, { Error: null, Message: result });
-      }
-    }
-  );
-};
-
-module.exports = { Register, Login, isLogged, LogoutUser, getDetails };
+module.exports = { Register, Login, isLogged, LogoutUser };

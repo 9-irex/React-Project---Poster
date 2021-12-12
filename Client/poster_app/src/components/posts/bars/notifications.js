@@ -75,7 +75,7 @@ function Notifications({ user, suggests, requestList }) {
         From: "",
         To: "",
         Status: "Accept",
-        Date: left + " " + right,
+        Date: left+" "+right,
       })
     );
 

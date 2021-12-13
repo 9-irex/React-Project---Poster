@@ -1,17 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import instance from "../../../axios";
+import $ from "jquery";
+import {
+  initializePost,
+  likePosts,
+  unlikePosts,
+} from "../../../redux/features/post_reducer";
 import {
   allowRequest,
   bendRequest,
   ignoreRequest,
   setRequest,
 } from "../../../redux/features/request_reducer";
+import nameCutter from "../../../shrink";
+import getElapsedTime from "../../../timing";
 
 function Notifications({ user, suggests, requestList }) {
   const [notifications, setNotifications] = useState(false);
   const [requests, setRequests] = useState(true);
   const [profile, setProifile] = useState(false);
+  const [userPosts, setUserPosts] = useState([]);
+  const [howMany, setHowMany] = useState([]);
   const dispatch = useDispatch();
+
+  const [like_toggle, setLikeToggle] = useState(1);
+
+  const LikePost = (id, e) => {
+    if (like_toggle === 1) {
+      dispatch(
+        initializePost({
+          PostID: id,
+          Title: 1,
+          Image: "",
+          UserID: "",
+          Date: "",
+          Type: "Like",
+        })
+      );
+      dispatch(likePosts());
+      setLikeToggle(2);
+    } else {
+      dispatch(
+        initializePost({
+          PostID: id,
+          Title: "",
+          Image: "",
+          UserID: "",
+          Date: "",
+          Type: "Unlike",
+        })
+      );
+      dispatch(unlikePosts());
+      setLikeToggle(1);
+    }
+    e.target.classList.toggle("fa-heart-class-toggler");
+  };
 
   const showLinks = (type) => {
     if (type === "notifacations") {
@@ -75,12 +119,25 @@ function Notifications({ user, suggests, requestList }) {
         From: "",
         To: "",
         Status: "Accept",
-        Date: left+" "+right,
+        Date: left + " " + right,
       })
     );
 
     dispatch(allowRequest());
   };
+
+  const EditProfile = () => {
+    $(".edit_form").slideToggle(400);
+  };
+
+  useEffect(() => {
+    instance.get("/get_user_posts/" + user.id).then((response) => {
+      setUserPosts(response.data.Message);
+    });
+    instance.get("/how_many/" + user.id).then((response) => {
+      setHowMany(response.data.Message);
+    });
+  }, []);
 
   return (
     <div className="notifications">
@@ -205,6 +262,153 @@ function Notifications({ user, suggests, requestList }) {
                         </div>
                       )
                   )}
+                </div>
+              </div>
+            </React.Fragment>
+          )}
+          {profile && (
+            <React.Fragment>
+              <div className="profile_view">
+                <div className="wrapper">
+                  <div className="profile_details">
+                    <div className="wrapper">
+                      <div className="profile_lighter">
+                        <div className="profile_image">
+                          <img src={user.avatar} alt="" />
+                        </div>
+                      </div>
+                      <p className="name">{nameCutter(user.name)}</p>
+                      <p className="username">@{user.username}</p>
+
+                      <div className="numbers_summary">
+                        <div className="__posts">
+                          <span className="no">{howMany[0].Posts}</span>
+                          <span className="title">posts</span>
+                        </div>
+                        <div className="__followers">
+                          <span className="no">{howMany[0].Freinds}</span>
+                          <span className="title">friends</span>
+                        </div>
+                        <div className="__likes">
+                          <span className="no">{howMany[0].Likes}</span>
+                          <span className="title">likes</span>
+                        </div>
+                      </div>
+                      <div className="edit_form">
+                        <div className="wrapper">
+                          <div>
+                            <input type="text" placeholder="Name" />
+                          </div>
+                          <div>
+                            <input type="email" placeholder="Email" />
+                          </div>
+                          <div>
+                            <input type="text" placeholder="Phone" />
+                          </div>
+                          <div>
+                            <input type="text" placeholder="Username" />
+                          </div>
+                          <div>
+                            <input type="password" placeholder="Password" />
+                          </div>
+                          <div>
+                            <select required>
+                              <option value="">Select Gender</option>
+                              <option value="1">Male Gender</option>
+                              <option value="2">Female Gender</option>
+                            </select>
+                          </div>
+                          <div>
+                            <span className="indicator">* Birthdate</span>
+                            <input
+                              type="date"
+                              required
+                              placeholder="Your Brithday"
+                            />
+                          </div>
+                          <div>
+                            <span className="indicator">* Date</span>
+                            <input
+                              type="date"
+                              required
+                              placeholder="Current Date"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <button className="edit_profile" onClick={EditProfile}>
+                        edit profile
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="posts_details">
+                    <div className="wrapper">
+                      {userPosts.length !== 0 ? (
+                        userPosts.map((post) => (
+                          <div
+                            className="post_box"
+                            key={post.PostID}
+                            postid={post.PostID}
+                          >
+                            <div className="top__bar">
+                              <div>
+                                <div className="image">
+                                  <img
+                                    src={
+                                      post.Avatar.length === 1
+                                        ? "/Images/Avatars/Image - " +
+                                          post.Avatar +
+                                          ".jpg"
+                                        : "Images/Uploads/" + post.Avatar
+                                    }
+                                    alt=""
+                                  />
+                                </div>
+                                <div>
+                                  <span className="name">
+                                    {nameCutter(post.Name)}
+                                  </span>
+                                  <span className="date">
+                                    {
+                                      getElapsedTime(post.Date.toString())
+                                        .Date_String
+                                    }
+                                  </span>
+                                </div>
+                              </div>
+                              <i className="fa fa-bars"></i>
+                            </div>
+                            <div className="postTitle">{post.Title}</div>
+                            {post.Image !== "" && (
+                              <div className="middle_bar">
+                                <img
+                                  src={"/Images/Uploads/" + post.Image}
+                                  alt=""
+                                />
+                              </div>
+                            )}
+                            <div className="last__bar">
+                              <div onClick={(e) => LikePost(post.PostID, e)}>
+                                <i className="fa fa-heart"></i>
+                                <p>{post.Likes}</p>
+                              </div>
+                              <div>
+                                <i className="fa fa-comment"></i>
+                                <p>0</p>
+                              </div>
+                              <div>
+                                <i className="fa fa-share"></i>
+                                <p>{post.Shares}</p>
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <h1>Empty Posts</h1>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </React.Fragment>

@@ -52,13 +52,13 @@ function Feed({ user, mostFollowed, mostActive }) {
     }
   }
 
-  const handleFileUpload = async (e) => {
+  const handleFileUpload = (e) => {
     e.preventDefault();
     const form_data = new FormData();
     const file = e.target.files[0];
     displayImage(file);
     form_data.append("postImage", file);
-    const response = await instance.post("/upload", form_data);
+    const response = instance.post("/upload", form_data);
     // const base64 = await convertToBase64(file);
     setPostImage(response.data.Message);
   };
@@ -135,7 +135,7 @@ function Feed({ user, mostFollowed, mostActive }) {
         </div>
         <div className="body">
           {mostFollowed.map((user) => (
-            <div className="user">
+            <div className="user" key={user.UserID}>
               <div>
                 <div className="user_image">
                   <img
@@ -165,7 +165,7 @@ function Feed({ user, mostFollowed, mostActive }) {
         </div>
         <div className="body">
           {mostActive.map((user) => (
-            <div className="user">
+            <div className="user" key={user.UserID}>
               <div>
                 <div className="user_image">
                   <img

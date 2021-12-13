@@ -7,6 +7,7 @@ var sessionHoster;
 // Session User Object - String the session as an object
 const UserSessionObject = {
   UserID: "",
+  Name: "",
   Username: "",
   Password: "",
   Avatar: "",
@@ -93,6 +94,7 @@ const Login = async (req, res) => {
         } else {
           // Initializing UserObjects For Stroing The Session
           UserSessionObject.UserID = result[0][0].UserID;
+          UserSessionObject.Name = result[0][0].Name;
           UserSessionObject.Username = result[0][0].Username;
           UserSessionObject.Password = result[0][0].Password;
           UserSessionObject.Avatar =

@@ -124,4 +124,55 @@ const GetAllPosts = async (req, res) => {
   });
 };
 
-module.exports = { SendPost, Upload, GetAllPosts, Like, Share, Unlike };
+const GetUserPosts = async (req, res) => {
+  const { id } = req.params;
+  const query = "CALL pr_post(?,?,?,?,?,?)";
+
+  await db.query(
+    query,
+    ["", "", "", id, "", "Get_User_Post"],
+    (error, result) => {
+      if (error) {
+        sendResponse(req, res, 200, {
+          Error: error,
+          Message: "Query Error",
+        });
+      } else {
+        sendResponse(req, res, 200, {
+          Error: null,
+          Message: result[0],
+        });
+      }
+    }
+  );
+};
+
+const HowMany = async (req, res) => {
+  const { id } = req.params;
+  const query = "CALL pr_post(?,?,?,?,?,?)";
+
+  await db.query(query, ["", "", "", id, "", "How Many"], (error, result) => {
+    if (error) {
+      sendResponse(req, res, 200, {
+        Error: error,
+        Message: "Query Error",
+      });
+    } else {
+      sendResponse(req, res, 200, {
+        Error: null,
+        Message: result[0],
+      });
+    }
+  });
+};
+
+module.exports = {
+  SendPost,
+  Upload,
+  GetAllPosts,
+  Like,
+  Share,
+  Unlike,
+  GetUserPosts,
+  HowMany,
+};

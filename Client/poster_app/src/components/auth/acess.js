@@ -32,6 +32,7 @@ function Access() {
           const messageData = {
             isLogged: true,
             id: res.data.Message.UserID,
+            name: res.data.Message.Name,
             username: res.data.Message.Username,
             password: res.data.Message.Password,
             avatar: res.data.Message.Avatar,

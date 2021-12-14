@@ -63,7 +63,7 @@ function FeedChat({ chatBox, update, friends }) {
                   </div>
                   <div className="details">
                     <p className="name">{nameCutter(chat.Name)}</p>
-                    <p className="last_message">last message sent</p>
+                    <p className="last_message">{chat.LastMessage}</p>
                   </div>
                 </div>
                 {chat.Seen === 0 && <div className="indicator"></div>}
@@ -105,9 +105,9 @@ function FeedChat({ chatBox, update, friends }) {
                       nameCutter(friend.Name),
                       friend.Avatar,
                       friend.UserID,
-                      "Single",
+                      friend.Type,
                       0
-                    ) && setShow(false)
+                    )
                   }
                 >
                   <i className="fa fa-arrow-right"></i>

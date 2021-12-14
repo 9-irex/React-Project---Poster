@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/features/user_reducer";
 
-function Nav({ user }) {
+function Nav({ user, activePage }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -14,16 +14,30 @@ function Nav({ user }) {
     history.push("/access");
   };
 
+  const navigate = (name) => {
+    if (name === "home") {
+      history.push("/");
+    } else {
+      history.push("/chat");
+    }
+  };
+
   return (
     <div className="navigation__side">
       <div>
         <div className="logo">
           <img src="/Images/SVG/logo.svg" alt="Logo" />
         </div>
-        <div className="icon active">
+        <div
+          className={activePage === "home" ? "icon active" : "icon"}
+          onClick={() => navigate("home")}
+        >
           <i className="fa fa-home"></i>
         </div>
-        <div className="icon">
+        <div
+          className={activePage === "chat" ? "icon active" : "icon"}
+          onClick={() => navigate("chat")}
+        >
           <i className="fa fa-comment"></i>
         </div>
       </div>

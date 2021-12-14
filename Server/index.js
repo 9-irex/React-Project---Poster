@@ -7,6 +7,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const Auth = require("./routes/auth_routes");
 const Post = require("./routes/post_routes");
+const Chat = require("./routes/chat_routes");
 const Requests = require("./routes/request_routes");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -40,6 +41,7 @@ app.use(
 app.use("/api/v1/poster", Auth);
 app.use("/api/v1/poster", Post);
 app.use("/api/v1/poster", Requests);
+app.use("/api/v1/poster", Chat);
 
 // Initialize the port number
 const port = 4000;

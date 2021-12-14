@@ -36,11 +36,13 @@ function Home() {
   }, [isLogged, location]);
 
   useEffect(() => {
-    instance.get("/all_posts").then((response) => {
-      if (response.data.Error == null) {
-        dispatch(setListPosts(response.data.Message));
-      }
-    });
+    setInterval(() => {
+      instance.get("/all_posts").then((response) => {
+        if (response.data.Error == null) {
+          dispatch(setListPosts(response.data.Message));
+        }
+      });
+    }, 500);
   }, [dispatch]);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ function Home() {
     render && (
       <div className="__feed__container">
         <div className="wrapper">
-          <Nav user={JSON.parse(isLogged)} />
+          <Nav activePage="home" user={JSON.parse(isLogged)} />
           <Feed
             user={JSON.parse(isLogged)}
             mostFollowed={mostFollowed}

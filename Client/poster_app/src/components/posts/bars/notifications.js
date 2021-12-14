@@ -137,7 +137,7 @@ function Notifications({ user, suggests, requestList }) {
     instance.get("/how_many/" + user.id).then((response) => {
       setHowMany(response.data.Message);
     });
-  }, []);
+  }, [user.id]);
 
   return (
     <div className="notifications">

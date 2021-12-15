@@ -1,5 +1,7 @@
 const multer = require("multer");
 const path = require("path");
+const { v4: uuidv4 } = require("uuid");
+
 var storage = multer.diskStorage({
   destination: path.join(
     __dirname,
@@ -7,7 +9,10 @@ var storage = multer.diskStorage({
     "Uploads"
   ),
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-_-_-" + file.originalname);
+    cb(
+      null,
+      uuidv4() + "-" + file.originalname.toLowerCase().split(" ").join("-")
+    );
   },
 });
 

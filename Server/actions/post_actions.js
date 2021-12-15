@@ -30,7 +30,21 @@ const SendPost = (req, res) => {
 
 const Upload = (req, res) => {
   try {
-    let _upload = multer({ storage: storage }).single("postImage");
+    let _upload = multer({
+      storage: storage,
+      fileFilter: (req, file, cb) => {
+        if (
+          file.mimetype == "image/png" ||
+          file.mimetype == "image/jpg" ||
+          file.mimetype == "image/jpeg"
+        ) {
+          cb(null, true);
+        } else {
+          cb(null, false);
+          return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+        }
+      },
+    }).single("postImage");
 
     _upload(req, res, (err) => {
       // Check if the image is been uploaded successfully

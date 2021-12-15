@@ -23,6 +23,7 @@ function Notifications({ user, suggests, requestList }) {
   const [userPosts, setUserPosts] = useState([]);
   const [howMany, setHowMany] = useState([]);
   const dispatch = useDispatch();
+  const [previewIMG, setPreviewIMG] = useState("");
 
   const [like_toggle, setLikeToggle] = useState(1);
 
@@ -54,7 +55,7 @@ function Notifications({ user, suggests, requestList }) {
       dispatch(unlikePosts());
       setLikeToggle(1);
     }
-    e.target.classList.toggle("fa-heart-class-toggler");
+    e.target.classList.toggle("fa-heart-className-toggler");
   };
 
   const showLinks = (type) => {
@@ -128,6 +129,27 @@ function Notifications({ user, suggests, requestList }) {
 
   const EditProfile = () => {
     $(".edit_form").slideToggle(400);
+  };
+
+  function displayImage(e) {
+    if (e) {
+      var reader = new FileReader();
+      reader.readAsDataURL(e);
+      reader.onload = function (e) {
+        setPreviewIMG(reader.result);
+      };
+    }
+  }
+
+  const handleFileUpload = (e) => {
+    e.preventDefault();
+    const form_data = new FormData();
+    const file = e.target.files[0];
+    displayImage(file);
+    form_data.append("postImage", file);
+    const response = instance.post("/upload", form_data);
+    console.log(response);
+    // const base64 = await convertToBase64(file);
   };
 
   useEffect(() => {
@@ -272,73 +294,121 @@ function Notifications({ user, suggests, requestList }) {
                 <div className="wrapper">
                   <div className="profile_details">
                     <div className="wrapper">
-                      <div className="profile_lighter">
-                        <div className="profile_image">
-                          <img src={user.avatar} alt="" />
+                      <div>
+                        <div className="profile_lighter">
+                          <div className="change_image">
+                            <label htmlFor="image">
+                              <input
+                                type="file"
+                                id="file"
+                                onChange={handleFileUpload}
+                              />
+                              <i className="fa fa-user"></i>
+                            </label>
+                          </div>
+                          <div className="profile_image">
+                            <img
+                              src={previewIMG === "" ? user.avatar : previewIMG}
+                              alt=""
+                            />
+                          </div>
                         </div>
+                        <p className="name">{nameCutter(user.name)}</p>
+                        <p className="username">@{user.username}</p>
                       </div>
-                      <p className="name">{nameCutter(user.name)}</p>
-                      <p className="username">@{user.username}</p>
 
-                      <div className="numbers_summary">
-                        <div className="__posts">
-                          <span className="no">{howMany[0].Posts}</span>
-                          <span className="title">posts</span>
+                      <div>
+                        <div className="numbers_summary">
+                          <div className="__posts">
+                            <span className="no">{howMany[0].Posts}</span>
+                            <span className="title">posts</span>
+                          </div>
+                          <div className="__followers">
+                            <span className="no">{howMany[0].Freinds}</span>
+                            <span className="title">friends</span>
+                          </div>
+                          <div className="__likes">
+                            <span className="no">{howMany[0].Likes}</span>
+                            <span className="title">likes</span>
+                          </div>
                         </div>
-                        <div className="__followers">
-                          <span className="no">{howMany[0].Freinds}</span>
-                          <span className="title">friends</span>
-                        </div>
-                        <div className="__likes">
-                          <span className="no">{howMany[0].Likes}</span>
-                          <span className="title">likes</span>
-                        </div>
+                        <button className="edit_profile" onClick={EditProfile}>
+                          edit profile
+                        </button>
                       </div>
+
                       <div className="edit_form">
                         <div className="wrapper">
-                          <div>
-                            <input type="text" placeholder="Name" />
+                          <div className="iii">
+                            <div>
+                              <input
+                                type="text"
+                                placeholder="Name"
+                                defaultValue={user.name}
+                              />
+                            </div>
+                            <div>
+                              <input
+                                type="email"
+                                placeholder="Email"
+                                defaultValue={user.email}
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <input type="email" placeholder="Email" />
+                          <div className="iii">
+                            <div>
+                              <input
+                                type="text"
+                                placeholder="Phone"
+                                defaultValue={user.phone}
+                              />
+                            </div>
+                            <div>
+                              <input
+                                type="text"
+                                placeholder="Username"
+                                defaultValue={user.username}
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <input type="text" placeholder="Phone" />
+                          <div className="iii">
+                            <div>
+                              <input
+                                type="text"
+                                placeholder="Password"
+                                defaultValue={user.password}
+                              />
+                            </div>
+                            <div>
+                              <select required defaultValue={user.gender}>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male Gender</option>
+                                <option value="Female">Female Gender</option>
+                              </select>
+                            </div>
                           </div>
-                          <div>
-                            <input type="text" placeholder="Username" />
-                          </div>
-                          <div>
-                            <input type="password" placeholder="Password" />
-                          </div>
-                          <div>
-                            <select required>
-                              <option value="">Select Gender</option>
-                              <option value="1">Male Gender</option>
-                              <option value="2">Female Gender</option>
-                            </select>
-                          </div>
-                          <div>
-                            <span className="indicator">* Birthdate</span>
-                            <input
-                              type="date"
-                              required
-                              placeholder="Your Brithday"
-                            />
-                          </div>
-                          <div>
-                            <span className="indicator">* Date</span>
-                            <input
-                              type="date"
-                              required
-                              placeholder="Current Date"
-                            />
+                          <div className="iii">
+                            <div>
+                              <span className="indicator">* Birthdate</span>
+                              <input
+                                type="date"
+                                required
+                                placeholder="Your Brithday"
+                                defaultValue={user.birthday}
+                              />
+                            </div>
+                            <div>
+                              <span className="indicator">* Date</span>
+                              <input
+                                type="date"
+                                required
+                                placeholder="Current Date"
+                                defaultValue={user.date}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <button className="edit_profile" onClick={EditProfile}>
-                        edit profile
-                      </button>
                     </div>
                   </div>
 

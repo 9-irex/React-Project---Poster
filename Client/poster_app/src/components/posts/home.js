@@ -36,13 +36,11 @@ function Home() {
   }, [isLogged, location]);
 
   useEffect(() => {
-    setInterval(() => {
-      instance.get("/all_posts").then((response) => {
-        if (response.data.Error == null) {
-          dispatch(setListPosts(response.data.Message));
-        }
-      });
-    }, 500);
+    instance.get("/all_posts").then((response) => {
+      if (response.data.Error == null) {
+        dispatch(setListPosts(response.data.Message));
+      }
+    });
   }, [dispatch]);
 
   useEffect(() => {
